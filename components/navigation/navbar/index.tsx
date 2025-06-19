@@ -20,7 +20,7 @@ const Navbar = () => {
         </p>
       </Link>
 
-      {/* <p>Global Search</p> */}
+      <p>Global Search</p>
 
       <div className="flex-between gap-5">
         <Theme />
