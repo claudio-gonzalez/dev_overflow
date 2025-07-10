@@ -1,7 +1,4 @@
 import { auth, signOut } from "@/auth";
-import { Button } from "@/components/ui/button";
-import ROUTES from "@/constants/routes";
-import { Home as HomeIcon } from "lucide-react"; // optional if using the icon
 
 const Home = async () => {
   const session = await auth();
@@ -19,9 +16,7 @@ const Home = async () => {
 
           await signOut({ redirectTo: "/sign-in" });
         }}
-      >
-        <Button type="submit">Log out</Button>
-      </form>
+      ></form>
     </>
   );
 };
