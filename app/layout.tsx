@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import React, { ReactNode } from "react";
+import { SessionProvider } from "next-auth/react";
+import { ReactNode } from "react";
 
 import "./globals.css";
-import Theme from "@/components/navigation/navbar/theme";
-import { ThemeProvider } from "next-themes";
-import { Toaster } from "@/components/ui/toaster";
-import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import { Toaster } from "@/components/ui/toaster";
+import ThemeProvider from "@/context/Theme";
 
 const inter = localFont({
   src: "./fonts/InterVF.ttf",
@@ -24,8 +23,7 @@ const spaceGrotesk = localFont({
 export const metadata: Metadata = {
   title: "DevFlow",
   description:
-    "A community-driven platform for askind and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web PHASE_DEVELOPMENT_SERVER, mobile app development, algorithms, data structures, and monitorEventLoopDelay.",
-
+    "A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
   icons: {
     icon: "/images/site-logo.svg",
   },
@@ -35,7 +33,14 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+        />
+      </head>
       <SessionProvider session={session}>
         <body
           className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
@@ -46,7 +51,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
             enableSystem
             disableTransitionOnChange
           >
-            {children}{" "}
+            {children}
           </ThemeProvider>
           <Toaster />
         </body>
